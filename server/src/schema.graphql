@@ -1,0 +1,28 @@
+# import STeam from "./generated/prisma.graphql"
+# import SEmployee from "./generated/prisma.graphql"
+# import STeamSubscriptionPayload from "./generated/prisma.graphql"
+# import SEmployeeSubscriptionPayload from "./generated/prisma.graphql"
+
+# import TeamCreateInput from "./extend-schema.graphql"
+# import TeamUpdateInput from "./extend-schema.graphql"
+# import EmployeeCreateInput from "./extend-schema.graphql"
+# import TeamListFilter from "./extend-schema.graphql"
+# import EmployeesListFilter from "./extend-schema.graphql"
+
+type Query {
+    getSTeams: [STeam]
+    getSTeam(teamId: String): STeam
+    getSEmployeesByTeamId(teamId: String): [SEmployee]
+}
+
+type Mutation {
+    createSTeam(data: TeamCreateInput): String
+    updateSTeam(data: TeamUpdateInput): String
+    createSEmployee(data: EmployeeCreateInput): String
+    updateSEmployee(data: EmployeeUpdateInput): String
+}
+
+type Subscription {
+    updateStrawberryTeamAny(filters: TeamListFilter): STeamSubscriptionPayload
+    updateStrawberryEmployees(filters: EmployeesListFilter): SEmployeeSubscriptionPayload
+}

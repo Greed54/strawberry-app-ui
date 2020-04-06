@@ -1,0 +1,64 @@
+input Record {
+    value: String!
+}
+
+input Identity {
+    key: String!
+}
+
+input Saga {
+    identity: String!
+}
+
+input Sorting {
+    key: String
+    order: String
+}
+
+input EmployeeCreateInput {
+    identity: Record!
+    cardId: Identity!
+    firstName: String
+    lastName: String
+    employeeRole: String
+    teamId: Record
+    note: String
+    createdAt: String
+    createdBy: Identity
+}
+
+input EmployeeUpdateInput {
+    identity: Record!
+    cardId: Identity!
+    firstName: String
+    lastName: String
+    teamId: Record
+    note: String
+    modifiedAt: String
+    modifiedBy: Identity
+}
+
+input TeamCreateInput {
+    identity: Record!
+    teamName: String
+    teamLeadId: Record
+    createdAt: String
+    createdBy: Identity
+}
+
+input TeamUpdateInput {
+    identity: Record!
+    teamName: String
+    teamLeadId: Record
+    modifiedAt: String
+    modifiedBy: Identity
+}
+
+input TeamListFilter {
+    removed: Boolean
+}
+
+input EmployeesListFilter {
+    teamId: String
+    fullName: String
+}

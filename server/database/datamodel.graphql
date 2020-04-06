@@ -1,0 +1,61 @@
+type SEmployee {
+    id: ID! @id
+    coreID: String @unique
+    cardId: String @unique
+    firstName: String
+    lastName: String
+    employeeRole: String
+    note: String
+    team: STeam @relation(name: "TeamEmployeeRelation")
+    createdBy: String
+    _createdAt: DateTime
+    modifiedBy: String
+    modifiedAt: DateTime
+    removed: Boolean
+}
+
+type STeam {
+    id: ID! @id
+    coreID: String @unique
+    teamName: String
+    teamLead: SEmployee @relation(name: "TeamLeadEmployeeRelation")
+    employees: [SEmployee!]! @relation(name: "TeamEmployeeRelation")
+    createdBy: String
+    _createdAt: DateTime
+    modifiedBy: String
+    modifiedAt: DateTime
+    removed: Boolean
+}
+
+type SWorkDay {
+    id: ID! @id
+    coreID: String @unique
+    date: DateTime
+    #boxes: Int #calculated
+    #kilograms: Float #calculated
+    #allSalarys: Float #calculated
+    teams: [STeam!]!
+    pricePerKilo: Float
+    tareWeight: Float
+    _createdAt: DateTime
+    modifiedBy: String
+    modifiedAt: DateTime
+    removed: Boolean
+}
+
+type SBox {
+    id: ID! @id
+    coreID: String @unique
+    employee: SEmployee
+    workDay: SWorkDay
+    kilograms: Float
+    boxAmount: Int
+    weightId: Int
+    _createdAt: DateTime
+    modifiedBy: String
+    modifiedAt: DateTime
+    removed: Boolean
+}
+
+scalar DateTime
+scalar Long

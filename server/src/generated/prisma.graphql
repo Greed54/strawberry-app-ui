@@ -1,0 +1,1491 @@
+type AggregateSBox {
+  count: Int!
+}
+
+type AggregateSEmployee {
+  count: Int!
+}
+
+type AggregateSTeam {
+  count: Int!
+}
+
+type AggregateSWorkDay {
+  count: Int!
+}
+
+type BatchPayload {
+  count: Long!
+}
+
+scalar DateTime
+
+scalar Long
+
+type Mutation {
+  createSBox(data: SBoxCreateInput!): SBox!
+  updateSBox(data: SBoxUpdateInput!, where: SBoxWhereUniqueInput!): SBox
+  updateManySBoxes(data: SBoxUpdateManyMutationInput!, where: SBoxWhereInput): BatchPayload!
+  upsertSBox(where: SBoxWhereUniqueInput!, create: SBoxCreateInput!, update: SBoxUpdateInput!): SBox!
+  deleteSBox(where: SBoxWhereUniqueInput!): SBox
+  deleteManySBoxes(where: SBoxWhereInput): BatchPayload!
+  createSEmployee(data: SEmployeeCreateInput!): SEmployee!
+  updateSEmployee(data: SEmployeeUpdateInput!, where: SEmployeeWhereUniqueInput!): SEmployee
+  updateManySEmployees(data: SEmployeeUpdateManyMutationInput!, where: SEmployeeWhereInput): BatchPayload!
+  upsertSEmployee(where: SEmployeeWhereUniqueInput!, create: SEmployeeCreateInput!, update: SEmployeeUpdateInput!): SEmployee!
+  deleteSEmployee(where: SEmployeeWhereUniqueInput!): SEmployee
+  deleteManySEmployees(where: SEmployeeWhereInput): BatchPayload!
+  createSTeam(data: STeamCreateInput!): STeam!
+  updateSTeam(data: STeamUpdateInput!, where: STeamWhereUniqueInput!): STeam
+  updateManySTeams(data: STeamUpdateManyMutationInput!, where: STeamWhereInput): BatchPayload!
+  upsertSTeam(where: STeamWhereUniqueInput!, create: STeamCreateInput!, update: STeamUpdateInput!): STeam!
+  deleteSTeam(where: STeamWhereUniqueInput!): STeam
+  deleteManySTeams(where: STeamWhereInput): BatchPayload!
+  createSWorkDay(data: SWorkDayCreateInput!): SWorkDay!
+  updateSWorkDay(data: SWorkDayUpdateInput!, where: SWorkDayWhereUniqueInput!): SWorkDay
+  updateManySWorkDays(data: SWorkDayUpdateManyMutationInput!, where: SWorkDayWhereInput): BatchPayload!
+  upsertSWorkDay(where: SWorkDayWhereUniqueInput!, create: SWorkDayCreateInput!, update: SWorkDayUpdateInput!): SWorkDay!
+  deleteSWorkDay(where: SWorkDayWhereUniqueInput!): SWorkDay
+  deleteManySWorkDays(where: SWorkDayWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  sBox(where: SBoxWhereUniqueInput!): SBox
+  sBoxes(where: SBoxWhereInput, orderBy: SBoxOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SBox]!
+  sBoxesConnection(where: SBoxWhereInput, orderBy: SBoxOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SBoxConnection!
+  sEmployee(where: SEmployeeWhereUniqueInput!): SEmployee
+  sEmployees(where: SEmployeeWhereInput, orderBy: SEmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SEmployee]!
+  sEmployeesConnection(where: SEmployeeWhereInput, orderBy: SEmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SEmployeeConnection!
+  sTeam(where: STeamWhereUniqueInput!): STeam
+  sTeams(where: STeamWhereInput, orderBy: STeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [STeam]!
+  sTeamsConnection(where: STeamWhereInput, orderBy: STeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): STeamConnection!
+  sWorkDay(where: SWorkDayWhereUniqueInput!): SWorkDay
+  sWorkDays(where: SWorkDayWhereInput, orderBy: SWorkDayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SWorkDay]!
+  sWorkDaysConnection(where: SWorkDayWhereInput, orderBy: SWorkDayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SWorkDayConnection!
+  node(id: ID!): Node
+}
+
+type SBox {
+  id: ID!
+  coreID: String
+  employee: SEmployee
+  workDay: SWorkDay
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type SBoxConnection {
+  pageInfo: PageInfo!
+  edges: [SBoxEdge]!
+  aggregate: AggregateSBox!
+}
+
+input SBoxCreateInput {
+  id: ID
+  coreID: String
+  employee: SEmployeeCreateOneInput
+  workDay: SWorkDayCreateOneInput
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type SBoxEdge {
+  node: SBox!
+  cursor: String!
+}
+
+enum SBoxOrderByInput {
+  id_ASC
+  id_DESC
+  coreID_ASC
+  coreID_DESC
+  kilograms_ASC
+  kilograms_DESC
+  boxAmount_ASC
+  boxAmount_DESC
+  weightId_ASC
+  weightId_DESC
+  _createdAt_ASC
+  _createdAt_DESC
+  modifiedBy_ASC
+  modifiedBy_DESC
+  modifiedAt_ASC
+  modifiedAt_DESC
+  removed_ASC
+  removed_DESC
+}
+
+type SBoxPreviousValues {
+  id: ID!
+  coreID: String
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type SBoxSubscriptionPayload {
+  mutation: MutationType!
+  node: SBox
+  updatedFields: [String!]
+  previousValues: SBoxPreviousValues
+}
+
+input SBoxSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SBoxWhereInput
+  AND: [SBoxSubscriptionWhereInput!]
+  OR: [SBoxSubscriptionWhereInput!]
+  NOT: [SBoxSubscriptionWhereInput!]
+}
+
+input SBoxUpdateInput {
+  coreID: String
+  employee: SEmployeeUpdateOneInput
+  workDay: SWorkDayUpdateOneInput
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SBoxUpdateManyMutationInput {
+  coreID: String
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SBoxWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  coreID: String
+  coreID_not: String
+  coreID_in: [String!]
+  coreID_not_in: [String!]
+  coreID_lt: String
+  coreID_lte: String
+  coreID_gt: String
+  coreID_gte: String
+  coreID_contains: String
+  coreID_not_contains: String
+  coreID_starts_with: String
+  coreID_not_starts_with: String
+  coreID_ends_with: String
+  coreID_not_ends_with: String
+  employee: SEmployeeWhereInput
+  workDay: SWorkDayWhereInput
+  kilograms: Float
+  kilograms_not: Float
+  kilograms_in: [Float!]
+  kilograms_not_in: [Float!]
+  kilograms_lt: Float
+  kilograms_lte: Float
+  kilograms_gt: Float
+  kilograms_gte: Float
+  boxAmount: Int
+  boxAmount_not: Int
+  boxAmount_in: [Int!]
+  boxAmount_not_in: [Int!]
+  boxAmount_lt: Int
+  boxAmount_lte: Int
+  boxAmount_gt: Int
+  boxAmount_gte: Int
+  weightId: Int
+  weightId_not: Int
+  weightId_in: [Int!]
+  weightId_not_in: [Int!]
+  weightId_lt: Int
+  weightId_lte: Int
+  weightId_gt: Int
+  weightId_gte: Int
+  _createdAt: DateTime
+  _createdAt_not: DateTime
+  _createdAt_in: [DateTime!]
+  _createdAt_not_in: [DateTime!]
+  _createdAt_lt: DateTime
+  _createdAt_lte: DateTime
+  _createdAt_gt: DateTime
+  _createdAt_gte: DateTime
+  modifiedBy: String
+  modifiedBy_not: String
+  modifiedBy_in: [String!]
+  modifiedBy_not_in: [String!]
+  modifiedBy_lt: String
+  modifiedBy_lte: String
+  modifiedBy_gt: String
+  modifiedBy_gte: String
+  modifiedBy_contains: String
+  modifiedBy_not_contains: String
+  modifiedBy_starts_with: String
+  modifiedBy_not_starts_with: String
+  modifiedBy_ends_with: String
+  modifiedBy_not_ends_with: String
+  modifiedAt: DateTime
+  modifiedAt_not: DateTime
+  modifiedAt_in: [DateTime!]
+  modifiedAt_not_in: [DateTime!]
+  modifiedAt_lt: DateTime
+  modifiedAt_lte: DateTime
+  modifiedAt_gt: DateTime
+  modifiedAt_gte: DateTime
+  removed: Boolean
+  removed_not: Boolean
+  AND: [SBoxWhereInput!]
+  OR: [SBoxWhereInput!]
+  NOT: [SBoxWhereInput!]
+}
+
+input SBoxWhereUniqueInput {
+  id: ID
+  coreID: String
+}
+
+type SEmployee {
+  id: ID!
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  team: STeam
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type SEmployeeConnection {
+  pageInfo: PageInfo!
+  edges: [SEmployeeEdge]!
+  aggregate: AggregateSEmployee!
+}
+
+input SEmployeeCreateInput {
+  id: ID
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  team: STeamCreateOneWithoutEmployeesInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SEmployeeCreateManyWithoutTeamInput {
+  create: [SEmployeeCreateWithoutTeamInput!]
+  connect: [SEmployeeWhereUniqueInput!]
+}
+
+input SEmployeeCreateOneInput {
+  create: SEmployeeCreateInput
+  connect: SEmployeeWhereUniqueInput
+}
+
+input SEmployeeCreateWithoutTeamInput {
+  id: ID
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type SEmployeeEdge {
+  node: SEmployee!
+  cursor: String!
+}
+
+enum SEmployeeOrderByInput {
+  id_ASC
+  id_DESC
+  coreID_ASC
+  coreID_DESC
+  cardId_ASC
+  cardId_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  employeeRole_ASC
+  employeeRole_DESC
+  note_ASC
+  note_DESC
+  createdBy_ASC
+  createdBy_DESC
+  _createdAt_ASC
+  _createdAt_DESC
+  modifiedBy_ASC
+  modifiedBy_DESC
+  modifiedAt_ASC
+  modifiedAt_DESC
+  removed_ASC
+  removed_DESC
+}
+
+type SEmployeePreviousValues {
+  id: ID!
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SEmployeeScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  coreID: String
+  coreID_not: String
+  coreID_in: [String!]
+  coreID_not_in: [String!]
+  coreID_lt: String
+  coreID_lte: String
+  coreID_gt: String
+  coreID_gte: String
+  coreID_contains: String
+  coreID_not_contains: String
+  coreID_starts_with: String
+  coreID_not_starts_with: String
+  coreID_ends_with: String
+  coreID_not_ends_with: String
+  cardId: String
+  cardId_not: String
+  cardId_in: [String!]
+  cardId_not_in: [String!]
+  cardId_lt: String
+  cardId_lte: String
+  cardId_gt: String
+  cardId_gte: String
+  cardId_contains: String
+  cardId_not_contains: String
+  cardId_starts_with: String
+  cardId_not_starts_with: String
+  cardId_ends_with: String
+  cardId_not_ends_with: String
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  employeeRole: String
+  employeeRole_not: String
+  employeeRole_in: [String!]
+  employeeRole_not_in: [String!]
+  employeeRole_lt: String
+  employeeRole_lte: String
+  employeeRole_gt: String
+  employeeRole_gte: String
+  employeeRole_contains: String
+  employeeRole_not_contains: String
+  employeeRole_starts_with: String
+  employeeRole_not_starts_with: String
+  employeeRole_ends_with: String
+  employeeRole_not_ends_with: String
+  note: String
+  note_not: String
+  note_in: [String!]
+  note_not_in: [String!]
+  note_lt: String
+  note_lte: String
+  note_gt: String
+  note_gte: String
+  note_contains: String
+  note_not_contains: String
+  note_starts_with: String
+  note_not_starts_with: String
+  note_ends_with: String
+  note_not_ends_with: String
+  createdBy: String
+  createdBy_not: String
+  createdBy_in: [String!]
+  createdBy_not_in: [String!]
+  createdBy_lt: String
+  createdBy_lte: String
+  createdBy_gt: String
+  createdBy_gte: String
+  createdBy_contains: String
+  createdBy_not_contains: String
+  createdBy_starts_with: String
+  createdBy_not_starts_with: String
+  createdBy_ends_with: String
+  createdBy_not_ends_with: String
+  _createdAt: DateTime
+  _createdAt_not: DateTime
+  _createdAt_in: [DateTime!]
+  _createdAt_not_in: [DateTime!]
+  _createdAt_lt: DateTime
+  _createdAt_lte: DateTime
+  _createdAt_gt: DateTime
+  _createdAt_gte: DateTime
+  modifiedBy: String
+  modifiedBy_not: String
+  modifiedBy_in: [String!]
+  modifiedBy_not_in: [String!]
+  modifiedBy_lt: String
+  modifiedBy_lte: String
+  modifiedBy_gt: String
+  modifiedBy_gte: String
+  modifiedBy_contains: String
+  modifiedBy_not_contains: String
+  modifiedBy_starts_with: String
+  modifiedBy_not_starts_with: String
+  modifiedBy_ends_with: String
+  modifiedBy_not_ends_with: String
+  modifiedAt: DateTime
+  modifiedAt_not: DateTime
+  modifiedAt_in: [DateTime!]
+  modifiedAt_not_in: [DateTime!]
+  modifiedAt_lt: DateTime
+  modifiedAt_lte: DateTime
+  modifiedAt_gt: DateTime
+  modifiedAt_gte: DateTime
+  removed: Boolean
+  removed_not: Boolean
+  AND: [SEmployeeScalarWhereInput!]
+  OR: [SEmployeeScalarWhereInput!]
+  NOT: [SEmployeeScalarWhereInput!]
+}
+
+type SEmployeeSubscriptionPayload {
+  mutation: MutationType!
+  node: SEmployee
+  updatedFields: [String!]
+  previousValues: SEmployeePreviousValues
+}
+
+input SEmployeeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SEmployeeWhereInput
+  AND: [SEmployeeSubscriptionWhereInput!]
+  OR: [SEmployeeSubscriptionWhereInput!]
+  NOT: [SEmployeeSubscriptionWhereInput!]
+}
+
+input SEmployeeUpdateDataInput {
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  team: STeamUpdateOneWithoutEmployeesInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SEmployeeUpdateInput {
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  team: STeamUpdateOneWithoutEmployeesInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SEmployeeUpdateManyDataInput {
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SEmployeeUpdateManyMutationInput {
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SEmployeeUpdateManyWithoutTeamInput {
+  create: [SEmployeeCreateWithoutTeamInput!]
+  delete: [SEmployeeWhereUniqueInput!]
+  connect: [SEmployeeWhereUniqueInput!]
+  set: [SEmployeeWhereUniqueInput!]
+  disconnect: [SEmployeeWhereUniqueInput!]
+  update: [SEmployeeUpdateWithWhereUniqueWithoutTeamInput!]
+  upsert: [SEmployeeUpsertWithWhereUniqueWithoutTeamInput!]
+  deleteMany: [SEmployeeScalarWhereInput!]
+  updateMany: [SEmployeeUpdateManyWithWhereNestedInput!]
+}
+
+input SEmployeeUpdateManyWithWhereNestedInput {
+  where: SEmployeeScalarWhereInput!
+  data: SEmployeeUpdateManyDataInput!
+}
+
+input SEmployeeUpdateOneInput {
+  create: SEmployeeCreateInput
+  update: SEmployeeUpdateDataInput
+  upsert: SEmployeeUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: SEmployeeWhereUniqueInput
+}
+
+input SEmployeeUpdateWithoutTeamDataInput {
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SEmployeeUpdateWithWhereUniqueWithoutTeamInput {
+  where: SEmployeeWhereUniqueInput!
+  data: SEmployeeUpdateWithoutTeamDataInput!
+}
+
+input SEmployeeUpsertNestedInput {
+  update: SEmployeeUpdateDataInput!
+  create: SEmployeeCreateInput!
+}
+
+input SEmployeeUpsertWithWhereUniqueWithoutTeamInput {
+  where: SEmployeeWhereUniqueInput!
+  update: SEmployeeUpdateWithoutTeamDataInput!
+  create: SEmployeeCreateWithoutTeamInput!
+}
+
+input SEmployeeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  coreID: String
+  coreID_not: String
+  coreID_in: [String!]
+  coreID_not_in: [String!]
+  coreID_lt: String
+  coreID_lte: String
+  coreID_gt: String
+  coreID_gte: String
+  coreID_contains: String
+  coreID_not_contains: String
+  coreID_starts_with: String
+  coreID_not_starts_with: String
+  coreID_ends_with: String
+  coreID_not_ends_with: String
+  cardId: String
+  cardId_not: String
+  cardId_in: [String!]
+  cardId_not_in: [String!]
+  cardId_lt: String
+  cardId_lte: String
+  cardId_gt: String
+  cardId_gte: String
+  cardId_contains: String
+  cardId_not_contains: String
+  cardId_starts_with: String
+  cardId_not_starts_with: String
+  cardId_ends_with: String
+  cardId_not_ends_with: String
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  employeeRole: String
+  employeeRole_not: String
+  employeeRole_in: [String!]
+  employeeRole_not_in: [String!]
+  employeeRole_lt: String
+  employeeRole_lte: String
+  employeeRole_gt: String
+  employeeRole_gte: String
+  employeeRole_contains: String
+  employeeRole_not_contains: String
+  employeeRole_starts_with: String
+  employeeRole_not_starts_with: String
+  employeeRole_ends_with: String
+  employeeRole_not_ends_with: String
+  note: String
+  note_not: String
+  note_in: [String!]
+  note_not_in: [String!]
+  note_lt: String
+  note_lte: String
+  note_gt: String
+  note_gte: String
+  note_contains: String
+  note_not_contains: String
+  note_starts_with: String
+  note_not_starts_with: String
+  note_ends_with: String
+  note_not_ends_with: String
+  team: STeamWhereInput
+  createdBy: String
+  createdBy_not: String
+  createdBy_in: [String!]
+  createdBy_not_in: [String!]
+  createdBy_lt: String
+  createdBy_lte: String
+  createdBy_gt: String
+  createdBy_gte: String
+  createdBy_contains: String
+  createdBy_not_contains: String
+  createdBy_starts_with: String
+  createdBy_not_starts_with: String
+  createdBy_ends_with: String
+  createdBy_not_ends_with: String
+  _createdAt: DateTime
+  _createdAt_not: DateTime
+  _createdAt_in: [DateTime!]
+  _createdAt_not_in: [DateTime!]
+  _createdAt_lt: DateTime
+  _createdAt_lte: DateTime
+  _createdAt_gt: DateTime
+  _createdAt_gte: DateTime
+  modifiedBy: String
+  modifiedBy_not: String
+  modifiedBy_in: [String!]
+  modifiedBy_not_in: [String!]
+  modifiedBy_lt: String
+  modifiedBy_lte: String
+  modifiedBy_gt: String
+  modifiedBy_gte: String
+  modifiedBy_contains: String
+  modifiedBy_not_contains: String
+  modifiedBy_starts_with: String
+  modifiedBy_not_starts_with: String
+  modifiedBy_ends_with: String
+  modifiedBy_not_ends_with: String
+  modifiedAt: DateTime
+  modifiedAt_not: DateTime
+  modifiedAt_in: [DateTime!]
+  modifiedAt_not_in: [DateTime!]
+  modifiedAt_lt: DateTime
+  modifiedAt_lte: DateTime
+  modifiedAt_gt: DateTime
+  modifiedAt_gte: DateTime
+  removed: Boolean
+  removed_not: Boolean
+  AND: [SEmployeeWhereInput!]
+  OR: [SEmployeeWhereInput!]
+  NOT: [SEmployeeWhereInput!]
+}
+
+input SEmployeeWhereUniqueInput {
+  id: ID
+  coreID: String
+  cardId: String
+}
+
+type STeam {
+  id: ID!
+  coreID: String
+  teamName: String
+  teamLead: SEmployee
+  employees(where: SEmployeeWhereInput, orderBy: SEmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SEmployee!]
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type STeamConnection {
+  pageInfo: PageInfo!
+  edges: [STeamEdge]!
+  aggregate: AggregateSTeam!
+}
+
+input STeamCreateInput {
+  id: ID
+  coreID: String
+  teamName: String
+  teamLead: SEmployeeCreateOneInput
+  employees: SEmployeeCreateManyWithoutTeamInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input STeamCreateManyInput {
+  create: [STeamCreateInput!]
+  connect: [STeamWhereUniqueInput!]
+}
+
+input STeamCreateOneWithoutEmployeesInput {
+  create: STeamCreateWithoutEmployeesInput
+  connect: STeamWhereUniqueInput
+}
+
+input STeamCreateWithoutEmployeesInput {
+  id: ID
+  coreID: String
+  teamName: String
+  teamLead: SEmployeeCreateOneInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type STeamEdge {
+  node: STeam!
+  cursor: String!
+}
+
+enum STeamOrderByInput {
+  id_ASC
+  id_DESC
+  coreID_ASC
+  coreID_DESC
+  teamName_ASC
+  teamName_DESC
+  createdBy_ASC
+  createdBy_DESC
+  _createdAt_ASC
+  _createdAt_DESC
+  modifiedBy_ASC
+  modifiedBy_DESC
+  modifiedAt_ASC
+  modifiedAt_DESC
+  removed_ASC
+  removed_DESC
+}
+
+type STeamPreviousValues {
+  id: ID!
+  coreID: String
+  teamName: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input STeamScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  coreID: String
+  coreID_not: String
+  coreID_in: [String!]
+  coreID_not_in: [String!]
+  coreID_lt: String
+  coreID_lte: String
+  coreID_gt: String
+  coreID_gte: String
+  coreID_contains: String
+  coreID_not_contains: String
+  coreID_starts_with: String
+  coreID_not_starts_with: String
+  coreID_ends_with: String
+  coreID_not_ends_with: String
+  teamName: String
+  teamName_not: String
+  teamName_in: [String!]
+  teamName_not_in: [String!]
+  teamName_lt: String
+  teamName_lte: String
+  teamName_gt: String
+  teamName_gte: String
+  teamName_contains: String
+  teamName_not_contains: String
+  teamName_starts_with: String
+  teamName_not_starts_with: String
+  teamName_ends_with: String
+  teamName_not_ends_with: String
+  createdBy: String
+  createdBy_not: String
+  createdBy_in: [String!]
+  createdBy_not_in: [String!]
+  createdBy_lt: String
+  createdBy_lte: String
+  createdBy_gt: String
+  createdBy_gte: String
+  createdBy_contains: String
+  createdBy_not_contains: String
+  createdBy_starts_with: String
+  createdBy_not_starts_with: String
+  createdBy_ends_with: String
+  createdBy_not_ends_with: String
+  _createdAt: DateTime
+  _createdAt_not: DateTime
+  _createdAt_in: [DateTime!]
+  _createdAt_not_in: [DateTime!]
+  _createdAt_lt: DateTime
+  _createdAt_lte: DateTime
+  _createdAt_gt: DateTime
+  _createdAt_gte: DateTime
+  modifiedBy: String
+  modifiedBy_not: String
+  modifiedBy_in: [String!]
+  modifiedBy_not_in: [String!]
+  modifiedBy_lt: String
+  modifiedBy_lte: String
+  modifiedBy_gt: String
+  modifiedBy_gte: String
+  modifiedBy_contains: String
+  modifiedBy_not_contains: String
+  modifiedBy_starts_with: String
+  modifiedBy_not_starts_with: String
+  modifiedBy_ends_with: String
+  modifiedBy_not_ends_with: String
+  modifiedAt: DateTime
+  modifiedAt_not: DateTime
+  modifiedAt_in: [DateTime!]
+  modifiedAt_not_in: [DateTime!]
+  modifiedAt_lt: DateTime
+  modifiedAt_lte: DateTime
+  modifiedAt_gt: DateTime
+  modifiedAt_gte: DateTime
+  removed: Boolean
+  removed_not: Boolean
+  AND: [STeamScalarWhereInput!]
+  OR: [STeamScalarWhereInput!]
+  NOT: [STeamScalarWhereInput!]
+}
+
+type STeamSubscriptionPayload {
+  mutation: MutationType!
+  node: STeam
+  updatedFields: [String!]
+  previousValues: STeamPreviousValues
+}
+
+input STeamSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: STeamWhereInput
+  AND: [STeamSubscriptionWhereInput!]
+  OR: [STeamSubscriptionWhereInput!]
+  NOT: [STeamSubscriptionWhereInput!]
+}
+
+input STeamUpdateDataInput {
+  coreID: String
+  teamName: String
+  teamLead: SEmployeeUpdateOneInput
+  employees: SEmployeeUpdateManyWithoutTeamInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input STeamUpdateInput {
+  coreID: String
+  teamName: String
+  teamLead: SEmployeeUpdateOneInput
+  employees: SEmployeeUpdateManyWithoutTeamInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input STeamUpdateManyDataInput {
+  coreID: String
+  teamName: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input STeamUpdateManyInput {
+  create: [STeamCreateInput!]
+  update: [STeamUpdateWithWhereUniqueNestedInput!]
+  upsert: [STeamUpsertWithWhereUniqueNestedInput!]
+  delete: [STeamWhereUniqueInput!]
+  connect: [STeamWhereUniqueInput!]
+  set: [STeamWhereUniqueInput!]
+  disconnect: [STeamWhereUniqueInput!]
+  deleteMany: [STeamScalarWhereInput!]
+  updateMany: [STeamUpdateManyWithWhereNestedInput!]
+}
+
+input STeamUpdateManyMutationInput {
+  coreID: String
+  teamName: String
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input STeamUpdateManyWithWhereNestedInput {
+  where: STeamScalarWhereInput!
+  data: STeamUpdateManyDataInput!
+}
+
+input STeamUpdateOneWithoutEmployeesInput {
+  create: STeamCreateWithoutEmployeesInput
+  update: STeamUpdateWithoutEmployeesDataInput
+  upsert: STeamUpsertWithoutEmployeesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: STeamWhereUniqueInput
+}
+
+input STeamUpdateWithoutEmployeesDataInput {
+  coreID: String
+  teamName: String
+  teamLead: SEmployeeUpdateOneInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input STeamUpdateWithWhereUniqueNestedInput {
+  where: STeamWhereUniqueInput!
+  data: STeamUpdateDataInput!
+}
+
+input STeamUpsertWithoutEmployeesInput {
+  update: STeamUpdateWithoutEmployeesDataInput!
+  create: STeamCreateWithoutEmployeesInput!
+}
+
+input STeamUpsertWithWhereUniqueNestedInput {
+  where: STeamWhereUniqueInput!
+  update: STeamUpdateDataInput!
+  create: STeamCreateInput!
+}
+
+input STeamWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  coreID: String
+  coreID_not: String
+  coreID_in: [String!]
+  coreID_not_in: [String!]
+  coreID_lt: String
+  coreID_lte: String
+  coreID_gt: String
+  coreID_gte: String
+  coreID_contains: String
+  coreID_not_contains: String
+  coreID_starts_with: String
+  coreID_not_starts_with: String
+  coreID_ends_with: String
+  coreID_not_ends_with: String
+  teamName: String
+  teamName_not: String
+  teamName_in: [String!]
+  teamName_not_in: [String!]
+  teamName_lt: String
+  teamName_lte: String
+  teamName_gt: String
+  teamName_gte: String
+  teamName_contains: String
+  teamName_not_contains: String
+  teamName_starts_with: String
+  teamName_not_starts_with: String
+  teamName_ends_with: String
+  teamName_not_ends_with: String
+  teamLead: SEmployeeWhereInput
+  employees_every: SEmployeeWhereInput
+  employees_some: SEmployeeWhereInput
+  employees_none: SEmployeeWhereInput
+  createdBy: String
+  createdBy_not: String
+  createdBy_in: [String!]
+  createdBy_not_in: [String!]
+  createdBy_lt: String
+  createdBy_lte: String
+  createdBy_gt: String
+  createdBy_gte: String
+  createdBy_contains: String
+  createdBy_not_contains: String
+  createdBy_starts_with: String
+  createdBy_not_starts_with: String
+  createdBy_ends_with: String
+  createdBy_not_ends_with: String
+  _createdAt: DateTime
+  _createdAt_not: DateTime
+  _createdAt_in: [DateTime!]
+  _createdAt_not_in: [DateTime!]
+  _createdAt_lt: DateTime
+  _createdAt_lte: DateTime
+  _createdAt_gt: DateTime
+  _createdAt_gte: DateTime
+  modifiedBy: String
+  modifiedBy_not: String
+  modifiedBy_in: [String!]
+  modifiedBy_not_in: [String!]
+  modifiedBy_lt: String
+  modifiedBy_lte: String
+  modifiedBy_gt: String
+  modifiedBy_gte: String
+  modifiedBy_contains: String
+  modifiedBy_not_contains: String
+  modifiedBy_starts_with: String
+  modifiedBy_not_starts_with: String
+  modifiedBy_ends_with: String
+  modifiedBy_not_ends_with: String
+  modifiedAt: DateTime
+  modifiedAt_not: DateTime
+  modifiedAt_in: [DateTime!]
+  modifiedAt_not_in: [DateTime!]
+  modifiedAt_lt: DateTime
+  modifiedAt_lte: DateTime
+  modifiedAt_gt: DateTime
+  modifiedAt_gte: DateTime
+  removed: Boolean
+  removed_not: Boolean
+  AND: [STeamWhereInput!]
+  OR: [STeamWhereInput!]
+  NOT: [STeamWhereInput!]
+}
+
+input STeamWhereUniqueInput {
+  id: ID
+  coreID: String
+}
+
+type Subscription {
+  sBox(where: SBoxSubscriptionWhereInput): SBoxSubscriptionPayload
+  sEmployee(where: SEmployeeSubscriptionWhereInput): SEmployeeSubscriptionPayload
+  sTeam(where: STeamSubscriptionWhereInput): STeamSubscriptionPayload
+  sWorkDay(where: SWorkDaySubscriptionWhereInput): SWorkDaySubscriptionPayload
+}
+
+type SWorkDay {
+  id: ID!
+  coreID: String
+  date: DateTime
+  teams(where: STeamWhereInput, orderBy: STeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [STeam!]
+  pricePerKilo: Float
+  tareWeight: Float
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type SWorkDayConnection {
+  pageInfo: PageInfo!
+  edges: [SWorkDayEdge]!
+  aggregate: AggregateSWorkDay!
+}
+
+input SWorkDayCreateInput {
+  id: ID
+  coreID: String
+  date: DateTime
+  teams: STeamCreateManyInput
+  pricePerKilo: Float
+  tareWeight: Float
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SWorkDayCreateOneInput {
+  create: SWorkDayCreateInput
+  connect: SWorkDayWhereUniqueInput
+}
+
+type SWorkDayEdge {
+  node: SWorkDay!
+  cursor: String!
+}
+
+enum SWorkDayOrderByInput {
+  id_ASC
+  id_DESC
+  coreID_ASC
+  coreID_DESC
+  date_ASC
+  date_DESC
+  pricePerKilo_ASC
+  pricePerKilo_DESC
+  tareWeight_ASC
+  tareWeight_DESC
+  _createdAt_ASC
+  _createdAt_DESC
+  modifiedBy_ASC
+  modifiedBy_DESC
+  modifiedAt_ASC
+  modifiedAt_DESC
+  removed_ASC
+  removed_DESC
+}
+
+type SWorkDayPreviousValues {
+  id: ID!
+  coreID: String
+  date: DateTime
+  pricePerKilo: Float
+  tareWeight: Float
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+type SWorkDaySubscriptionPayload {
+  mutation: MutationType!
+  node: SWorkDay
+  updatedFields: [String!]
+  previousValues: SWorkDayPreviousValues
+}
+
+input SWorkDaySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SWorkDayWhereInput
+  AND: [SWorkDaySubscriptionWhereInput!]
+  OR: [SWorkDaySubscriptionWhereInput!]
+  NOT: [SWorkDaySubscriptionWhereInput!]
+}
+
+input SWorkDayUpdateDataInput {
+  coreID: String
+  date: DateTime
+  teams: STeamUpdateManyInput
+  pricePerKilo: Float
+  tareWeight: Float
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SWorkDayUpdateInput {
+  coreID: String
+  date: DateTime
+  teams: STeamUpdateManyInput
+  pricePerKilo: Float
+  tareWeight: Float
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SWorkDayUpdateManyMutationInput {
+  coreID: String
+  date: DateTime
+  pricePerKilo: Float
+  tareWeight: Float
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SWorkDayUpdateOneInput {
+  create: SWorkDayCreateInput
+  update: SWorkDayUpdateDataInput
+  upsert: SWorkDayUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: SWorkDayWhereUniqueInput
+}
+
+input SWorkDayUpsertNestedInput {
+  update: SWorkDayUpdateDataInput!
+  create: SWorkDayCreateInput!
+}
+
+input SWorkDayWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  coreID: String
+  coreID_not: String
+  coreID_in: [String!]
+  coreID_not_in: [String!]
+  coreID_lt: String
+  coreID_lte: String
+  coreID_gt: String
+  coreID_gte: String
+  coreID_contains: String
+  coreID_not_contains: String
+  coreID_starts_with: String
+  coreID_not_starts_with: String
+  coreID_ends_with: String
+  coreID_not_ends_with: String
+  date: DateTime
+  date_not: DateTime
+  date_in: [DateTime!]
+  date_not_in: [DateTime!]
+  date_lt: DateTime
+  date_lte: DateTime
+  date_gt: DateTime
+  date_gte: DateTime
+  teams_every: STeamWhereInput
+  teams_some: STeamWhereInput
+  teams_none: STeamWhereInput
+  pricePerKilo: Float
+  pricePerKilo_not: Float
+  pricePerKilo_in: [Float!]
+  pricePerKilo_not_in: [Float!]
+  pricePerKilo_lt: Float
+  pricePerKilo_lte: Float
+  pricePerKilo_gt: Float
+  pricePerKilo_gte: Float
+  tareWeight: Float
+  tareWeight_not: Float
+  tareWeight_in: [Float!]
+  tareWeight_not_in: [Float!]
+  tareWeight_lt: Float
+  tareWeight_lte: Float
+  tareWeight_gt: Float
+  tareWeight_gte: Float
+  _createdAt: DateTime
+  _createdAt_not: DateTime
+  _createdAt_in: [DateTime!]
+  _createdAt_not_in: [DateTime!]
+  _createdAt_lt: DateTime
+  _createdAt_lte: DateTime
+  _createdAt_gt: DateTime
+  _createdAt_gte: DateTime
+  modifiedBy: String
+  modifiedBy_not: String
+  modifiedBy_in: [String!]
+  modifiedBy_not_in: [String!]
+  modifiedBy_lt: String
+  modifiedBy_lte: String
+  modifiedBy_gt: String
+  modifiedBy_gte: String
+  modifiedBy_contains: String
+  modifiedBy_not_contains: String
+  modifiedBy_starts_with: String
+  modifiedBy_not_starts_with: String
+  modifiedBy_ends_with: String
+  modifiedBy_not_ends_with: String
+  modifiedAt: DateTime
+  modifiedAt_not: DateTime
+  modifiedAt_in: [DateTime!]
+  modifiedAt_not_in: [DateTime!]
+  modifiedAt_lt: DateTime
+  modifiedAt_lte: DateTime
+  modifiedAt_gt: DateTime
+  modifiedAt_gte: DateTime
+  removed: Boolean
+  removed_not: Boolean
+  AND: [SWorkDayWhereInput!]
+  OR: [SWorkDayWhereInput!]
+  NOT: [SWorkDayWhereInput!]
+}
+
+input SWorkDayWhereUniqueInput {
+  id: ID
+  coreID: String
+}

@@ -1,0 +1,42 @@
+{
+  "name": "server",
+  "scripts": {
+    "start": "yarn schema && yarn run-server",
+    "start-dev": "yarn schema-dev && yarn run-server-dev",
+    "run-server": "cross-env DOT_CONFIG=dev ts-node src/index.ts",
+    "run-server-dev": "ts-node src/index.ts",
+    "schema": "prisma generate -e .dev.env",
+    "schema-dev": "prisma generate -e .dev.env",
+    "playground": "prisma playground -e .dev.env",
+    "playground-dev": "prisma playground -e .dev.env",
+    "deploy": "prisma delete -f -e .dev.env && prisma deploy -e .dev.env",
+    "deploy-demo": "prisma delete -f -e .demo.env && prisma deploy -e .demo.env",
+    "seed": "ts-node ./database/seeds/index.ts && prisma seed -r -e .dev.env",
+    "seed-demo": "ts-node ./database/seeds/index.ts && prisma seed -r -e .demo.env",
+    "prisma-import": "prisma import -d data.zip -e .dev.env",
+    "prisma-export": "prisma export -p data.zip -e .dev.env"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.0",
+    "@types/dotenv-safe": "^8.1.0",
+    "@types/node": "^12.12.31",
+    "@types/uuid": "^7.0.2",
+    "avsc": "^5.4.12",
+    "axios": "^0.19.0",
+    "dotenv-safe": "^8.1.0",
+    "graphql-shield": "^4.1.0",
+    "graphql-yoga": "^1.18.3",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "prisma-binding": "^2.3.16",
+    "uuid": "^7.0.2",
+    "winston": "2.4.4"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "graphql-cli": "^2.16.7"
+  },
+  "type": "module"
+}
