@@ -6,6 +6,7 @@ export interface StrawberryEmployee {
   employeeRole: EmployeeRoles;
   note: string;
   team: StrawberryTeam;
+  boxes?: StrawberryBox[];
   createdBy?: string;
   _createdAt?: any | null;
   removed?: boolean;
@@ -40,28 +41,28 @@ export interface StrawberryTeam {
 export interface StrawberryWorkDay {
   coreID: string;
   date: any;
-  teams: Array<StrawberryTeam>
+  teams?: Array<StrawberryTeam>
   pricePerKilo: number;
   tareWeight: number;
-  createdBy: string;
-  _createdAt: any | null;
-  modifiedBy: string;
-  _modifiedAt: any | null;
-  removed: boolean;
+  createdBy?: string;
+  _createdAt?: any | null;
+  modifiedBy?: string;
+  _modifiedAt?: any | null;
+  removed?: boolean;
 }
 
 export interface StrawberryBox {
   coreID: string;
-  employee: StrawberryEmployee;
+  employee?: StrawberryEmployee;
   workDay: StrawberryWorkDay;
   kilograms: number;
-  boxes: number;
-  weightNumber: number;
-  createdBy: string;
-  _createdAt: any | null;
-  modifiedBy: string;
-  _modifiedAt: any | null;
-  removed: boolean;
+  boxAmount: number;
+  weightNumber?: number;
+  createdBy?: string;
+  _createdAt?: any | null;
+  modifiedBy?: string;
+  _modifiedAt?: any | null;
+  removed?: boolean;
 }
 
 export interface Sorting {

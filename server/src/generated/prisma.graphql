@@ -105,7 +105,25 @@ type SBoxConnection {
 input SBoxCreateInput {
   id: ID
   coreID: String
-  employee: SEmployeeCreateOneInput
+  employee: SEmployeeCreateOneWithoutBoxesInput
+  workDay: SWorkDayCreateOneInput
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SBoxCreateManyWithoutEmployeeInput {
+  create: [SBoxCreateWithoutEmployeeInput!]
+  connect: [SBoxWhereUniqueInput!]
+}
+
+input SBoxCreateWithoutEmployeeInput {
+  id: ID
+  coreID: String
   workDay: SWorkDayCreateOneInput
   kilograms: Float
   boxAmount: Int
@@ -154,6 +172,96 @@ type SBoxPreviousValues {
   removed: Boolean
 }
 
+input SBoxScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  coreID: String
+  coreID_not: String
+  coreID_in: [String!]
+  coreID_not_in: [String!]
+  coreID_lt: String
+  coreID_lte: String
+  coreID_gt: String
+  coreID_gte: String
+  coreID_contains: String
+  coreID_not_contains: String
+  coreID_starts_with: String
+  coreID_not_starts_with: String
+  coreID_ends_with: String
+  coreID_not_ends_with: String
+  kilograms: Float
+  kilograms_not: Float
+  kilograms_in: [Float!]
+  kilograms_not_in: [Float!]
+  kilograms_lt: Float
+  kilograms_lte: Float
+  kilograms_gt: Float
+  kilograms_gte: Float
+  boxAmount: Int
+  boxAmount_not: Int
+  boxAmount_in: [Int!]
+  boxAmount_not_in: [Int!]
+  boxAmount_lt: Int
+  boxAmount_lte: Int
+  boxAmount_gt: Int
+  boxAmount_gte: Int
+  weightId: Int
+  weightId_not: Int
+  weightId_in: [Int!]
+  weightId_not_in: [Int!]
+  weightId_lt: Int
+  weightId_lte: Int
+  weightId_gt: Int
+  weightId_gte: Int
+  _createdAt: DateTime
+  _createdAt_not: DateTime
+  _createdAt_in: [DateTime!]
+  _createdAt_not_in: [DateTime!]
+  _createdAt_lt: DateTime
+  _createdAt_lte: DateTime
+  _createdAt_gt: DateTime
+  _createdAt_gte: DateTime
+  modifiedBy: String
+  modifiedBy_not: String
+  modifiedBy_in: [String!]
+  modifiedBy_not_in: [String!]
+  modifiedBy_lt: String
+  modifiedBy_lte: String
+  modifiedBy_gt: String
+  modifiedBy_gte: String
+  modifiedBy_contains: String
+  modifiedBy_not_contains: String
+  modifiedBy_starts_with: String
+  modifiedBy_not_starts_with: String
+  modifiedBy_ends_with: String
+  modifiedBy_not_ends_with: String
+  modifiedAt: DateTime
+  modifiedAt_not: DateTime
+  modifiedAt_in: [DateTime!]
+  modifiedAt_not_in: [DateTime!]
+  modifiedAt_lt: DateTime
+  modifiedAt_lte: DateTime
+  modifiedAt_gt: DateTime
+  modifiedAt_gte: DateTime
+  removed: Boolean
+  removed_not: Boolean
+  AND: [SBoxScalarWhereInput!]
+  OR: [SBoxScalarWhereInput!]
+  NOT: [SBoxScalarWhereInput!]
+}
+
 type SBoxSubscriptionPayload {
   mutation: MutationType!
   node: SBox
@@ -174,8 +282,19 @@ input SBoxSubscriptionWhereInput {
 
 input SBoxUpdateInput {
   coreID: String
-  employee: SEmployeeUpdateOneInput
+  employee: SEmployeeUpdateOneWithoutBoxesInput
   workDay: SWorkDayUpdateOneInput
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SBoxUpdateManyDataInput {
+  coreID: String
   kilograms: Float
   boxAmount: Int
   weightId: Int
@@ -194,6 +313,46 @@ input SBoxUpdateManyMutationInput {
   modifiedBy: String
   modifiedAt: DateTime
   removed: Boolean
+}
+
+input SBoxUpdateManyWithoutEmployeeInput {
+  create: [SBoxCreateWithoutEmployeeInput!]
+  delete: [SBoxWhereUniqueInput!]
+  connect: [SBoxWhereUniqueInput!]
+  set: [SBoxWhereUniqueInput!]
+  disconnect: [SBoxWhereUniqueInput!]
+  update: [SBoxUpdateWithWhereUniqueWithoutEmployeeInput!]
+  upsert: [SBoxUpsertWithWhereUniqueWithoutEmployeeInput!]
+  deleteMany: [SBoxScalarWhereInput!]
+  updateMany: [SBoxUpdateManyWithWhereNestedInput!]
+}
+
+input SBoxUpdateManyWithWhereNestedInput {
+  where: SBoxScalarWhereInput!
+  data: SBoxUpdateManyDataInput!
+}
+
+input SBoxUpdateWithoutEmployeeDataInput {
+  coreID: String
+  workDay: SWorkDayUpdateOneInput
+  kilograms: Float
+  boxAmount: Int
+  weightId: Int
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
+input SBoxUpdateWithWhereUniqueWithoutEmployeeInput {
+  where: SBoxWhereUniqueInput!
+  data: SBoxUpdateWithoutEmployeeDataInput!
+}
+
+input SBoxUpsertWithWhereUniqueWithoutEmployeeInput {
+  where: SBoxWhereUniqueInput!
+  update: SBoxUpdateWithoutEmployeeDataInput!
+  create: SBoxCreateWithoutEmployeeInput!
 }
 
 input SBoxWhereInput {
@@ -302,6 +461,7 @@ type SEmployee {
   employeeRole: String
   note: String
   team: STeam
+  boxes(where: SBoxWhereInput, orderBy: SBoxOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SBox!]
   createdBy: String
   _createdAt: DateTime
   modifiedBy: String
@@ -324,6 +484,7 @@ input SEmployeeCreateInput {
   employeeRole: String
   note: String
   team: STeamCreateOneWithoutEmployeesInput
+  boxes: SBoxCreateManyWithoutEmployeeInput
   createdBy: String
   _createdAt: DateTime
   modifiedBy: String
@@ -341,6 +502,27 @@ input SEmployeeCreateOneInput {
   connect: SEmployeeWhereUniqueInput
 }
 
+input SEmployeeCreateOneWithoutBoxesInput {
+  create: SEmployeeCreateWithoutBoxesInput
+  connect: SEmployeeWhereUniqueInput
+}
+
+input SEmployeeCreateWithoutBoxesInput {
+  id: ID
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  team: STeamCreateOneWithoutEmployeesInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
 input SEmployeeCreateWithoutTeamInput {
   id: ID
   coreID: String
@@ -349,6 +531,7 @@ input SEmployeeCreateWithoutTeamInput {
   lastName: String
   employeeRole: String
   note: String
+  boxes: SBoxCreateManyWithoutEmployeeInput
   createdBy: String
   _createdAt: DateTime
   modifiedBy: String
@@ -579,6 +762,7 @@ input SEmployeeUpdateDataInput {
   employeeRole: String
   note: String
   team: STeamUpdateOneWithoutEmployeesInput
+  boxes: SBoxUpdateManyWithoutEmployeeInput
   createdBy: String
   _createdAt: DateTime
   modifiedBy: String
@@ -594,6 +778,7 @@ input SEmployeeUpdateInput {
   employeeRole: String
   note: String
   team: STeamUpdateOneWithoutEmployeesInput
+  boxes: SBoxUpdateManyWithoutEmployeeInput
   createdBy: String
   _createdAt: DateTime
   modifiedBy: String
@@ -655,6 +840,30 @@ input SEmployeeUpdateOneInput {
   connect: SEmployeeWhereUniqueInput
 }
 
+input SEmployeeUpdateOneWithoutBoxesInput {
+  create: SEmployeeCreateWithoutBoxesInput
+  update: SEmployeeUpdateWithoutBoxesDataInput
+  upsert: SEmployeeUpsertWithoutBoxesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: SEmployeeWhereUniqueInput
+}
+
+input SEmployeeUpdateWithoutBoxesDataInput {
+  coreID: String
+  cardId: String
+  firstName: String
+  lastName: String
+  employeeRole: String
+  note: String
+  team: STeamUpdateOneWithoutEmployeesInput
+  createdBy: String
+  _createdAt: DateTime
+  modifiedBy: String
+  modifiedAt: DateTime
+  removed: Boolean
+}
+
 input SEmployeeUpdateWithoutTeamDataInput {
   coreID: String
   cardId: String
@@ -662,6 +871,7 @@ input SEmployeeUpdateWithoutTeamDataInput {
   lastName: String
   employeeRole: String
   note: String
+  boxes: SBoxUpdateManyWithoutEmployeeInput
   createdBy: String
   _createdAt: DateTime
   modifiedBy: String
@@ -677,6 +887,11 @@ input SEmployeeUpdateWithWhereUniqueWithoutTeamInput {
 input SEmployeeUpsertNestedInput {
   update: SEmployeeUpdateDataInput!
   create: SEmployeeCreateInput!
+}
+
+input SEmployeeUpsertWithoutBoxesInput {
+  update: SEmployeeUpdateWithoutBoxesDataInput!
+  create: SEmployeeCreateWithoutBoxesInput!
 }
 
 input SEmployeeUpsertWithWhereUniqueWithoutTeamInput {
@@ -785,6 +1000,9 @@ input SEmployeeWhereInput {
   note_ends_with: String
   note_not_ends_with: String
   team: STeamWhereInput
+  boxes_every: SBoxWhereInput
+  boxes_some: SBoxWhereInput
+  boxes_none: SBoxWhereInput
   createdBy: String
   createdBy_not: String
   createdBy_in: [String!]

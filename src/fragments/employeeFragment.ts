@@ -11,6 +11,17 @@ const STRAWBERRY_EMPLOYEE_FRAGMENT = gql`
         team {
             coreID
         }
+        boxes {
+            coreID
+            boxAmount
+            kilograms
+            workDay {
+                coreID
+                date
+                pricePerKilo
+                tareWeight
+            }
+        }
     }
 `;
 

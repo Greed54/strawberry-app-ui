@@ -103,7 +103,7 @@ export function getColumns(this: any): Array<Column> {
     },
     {
       key: 'uuid',
-      title: 'UUID',
+      title: 'Card Id',
       dataIndex: 'cardId',
       width: '300px',
       render: (value: any, record: any, width: any) => {
