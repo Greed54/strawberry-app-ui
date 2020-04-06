@@ -25,12 +25,12 @@ export interface AmendEmployeeCommand extends Modified {
   note: string;
 }
 
-export interface AmendEmployeeRole extends Modified {
+export interface AmendEmployeeRoleCommand extends Modified {
   identity: Identity;
   employeeRole: EmployeeRole;
 }
 
-export interface AmendEmployeeNote extends Modified {
+export interface AmendEmployeeNoteCommand extends Modified {
   identity: Identity;
   note: string;
 }

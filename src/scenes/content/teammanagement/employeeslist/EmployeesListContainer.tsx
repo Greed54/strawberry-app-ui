@@ -28,7 +28,9 @@ const employeesListActions: EmployeesListActions = {
   toggleAddingSider: actions.toggleAddingSider,
   toggleEditingSider: actions.toggleEditingSider,
   saveAddingSiderTab: actions.saveAddingSiderTab,
-  saveEditingSiderTab: actions.saveEditingSiderTab
+  saveEditingSiderTab: actions.saveEditingSiderTab,
+  createOrUpdateEmployeeSubscription: actions.createOrUpdateEmployeeSubscription,
+  updateEmployeeRole: actions.updateEmployeeRole
 };
 
 // @ts-ignore

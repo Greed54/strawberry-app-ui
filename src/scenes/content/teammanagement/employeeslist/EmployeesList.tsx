@@ -9,9 +9,10 @@ import Table from "../../../../components/table/Table";
 import {getColumns} from "./columns";
 import {SiderWrapper} from "../../../../components/siderwrapper/SiderWrapper";
 import EmployeeSider from "../../siders/employee/EmployeeSider";
-import {EmployeeRoles, StrawberryEmployee} from "../../../../types/schema-types";
+import {EmployeeRoles, StrawberryEmployee, StrawberryEmployeeExtended} from "../../../../types/schema-types";
 import {Subscription} from 'react-apollo';
 import {UPDATE_STRAWBERRY_EMPLOYEE_ANY} from "../../../../subscription/employee";
+import {getStrawberryEmployeeAfterSub} from "../../../../queries/employee";
 
 const {Option} = Select;
 
@@ -22,8 +23,16 @@ class EmployeesList extends React.Component<EmployeesListProps, EmployeesListSta
   }
 
   public renderEmployeeRoles = () => {
-    // @ts-ignore
-    return Object.keys(EmployeeRoles).map(role => <Option key={role}>{EmployeeRoles[role]}</Option>)
+    const teamLeadExist = this.props.dataSource.reduce((accumulator: boolean, employee: StrawberryEmployeeExtended) =>
+        accumulator || Object.is(employee.employeeRole.toString(), "TEAM_LEAD"), false);
+    return Object.keys(EmployeeRoles).map(role => {
+      if (role === "TEAM_LEAD" && teamLeadExist) {
+        return <Option key={role} disabled={true}>{EmployeeRoles[role]}</Option>;
+      } else {
+        // @ts-ignore
+        return <Option key={role}>{EmployeeRoles[role]}</Option>;
+      }
+    })
   };
 
   public handleFilterChange = (e: RadioChangeEvent) => {
@@ -64,7 +73,12 @@ class EmployeesList extends React.Component<EmployeesListProps, EmployeesListSta
     const {
       updateStrawberryEmployees: {node},
     } = subscriptionData.data;
-
+    getStrawberryEmployeeAfterSub(node.coreID).then((res: any) => {
+      const {
+        data: {getSEmployee}
+      } = res;
+      this.props.actions.createOrUpdateEmployeeSubscription(getSEmployee);
+    });
   };
 
   render() {

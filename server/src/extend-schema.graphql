@@ -38,6 +38,13 @@ input EmployeeUpdateInput {
     modifiedBy: Identity
 }
 
+input EmployeeUpdateRoleInput {
+    identity: Record!
+    employeeRole: String
+    modifiedAt: String
+    modifiedBy: Identity
+}
+
 input TeamCreateInput {
     identity: Record!
     teamName: String

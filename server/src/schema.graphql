@@ -5,14 +5,17 @@
 
 # import TeamCreateInput from "./extend-schema.graphql"
 # import TeamUpdateInput from "./extend-schema.graphql"
-# import EmployeeCreateInput from "./extend-schema.graphql"
 # import TeamListFilter from "./extend-schema.graphql"
+# import EmployeeCreateInput from "./extend-schema.graphql"
+# import EmployeeUpdateInput from "./extend-schema.graphql"
+# import EmployeeUpdateRoleInput from "./extend-schema.graphql"
 # import EmployeesListFilter from "./extend-schema.graphql"
 
 type Query {
     getSTeams: [STeam]
     getSTeam(teamId: String): STeam
     getSEmployeesByTeamId(teamId: String): [SEmployee]
+    getSEmployee(employeeId: String): SEmployee
 }
 
 type Mutation {
@@ -20,6 +23,7 @@ type Mutation {
     updateSTeam(data: TeamUpdateInput): String
     createSEmployee(data: EmployeeCreateInput): String
     updateSEmployee(data: EmployeeUpdateInput): String
+    updateSEmployeeRole(data: EmployeeUpdateRoleInput): String
 }
 
 type Subscription {

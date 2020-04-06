@@ -3,6 +3,7 @@ import {EmployeeListFromStore, Filters} from './types';
 import {reducerWithInitialState} from 'typescript-fsa-reducers';
 import {StrawberryEmployee, StrawberryEmployeeExtended} from "../../../../types/schema-types";
 import {getEmployeeById} from "./selectors";
+import {EmployeeRole} from "../../../../../server/src/api/employee";
 
 
 const actionCreator = actionCreatorFactory('teamsmanagement/employeeslist');
@@ -20,6 +21,7 @@ const TOGGLE_ADDING_SIDER_TAB = 'TOGGLE_ADDING_SIDER_TAB';
 const TOGGLE_EDITING_SIDER_TAB = 'TOGGLE_EDITING_SIDER_TAB';
 const CREATE_OR_UPDATE_EMPLOYEE_SUB = 'CREATE_OR_UPDATE_EMPLOYEE_SUB';
 const CREATE_OR_UPDATE_EMPLOYEE_SUCCESS = 'CREATE_OR_UPDATE_EMPLOYEE_SUCCESS';
+const UPDATE_EMPLOYEE_ROLE = 'UPDATE_EMPLOYEE_ROLE';
 
 export const actions = {
   fetch: actionCreator<void>(FETCH),
@@ -33,7 +35,8 @@ export const actions = {
   toggleEditingSider: actionCreator<{ editSider: boolean, coreId?: string }>(TOGGLE_EDITING_SIDER),
   saveAddingSiderTab: actionCreator<StrawberryEmployee>(TOGGLE_ADDING_SIDER_TAB),
   saveEditingSiderTab: actionCreator<StrawberryEmployee>(TOGGLE_EDITING_SIDER_TAB),
-  createOrUpdateEmployeeSubscription: actionCreator<StrawberryEmployee>(CREATE_OR_UPDATE_EMPLOYEE_SUB),
+  updateEmployeeRole: actionCreator<{coreID: string, role: EmployeeRole}>(UPDATE_EMPLOYEE_ROLE),
+  createOrUpdateEmployeeSubscription: actionCreator<StrawberryEmployeeExtended>(CREATE_OR_UPDATE_EMPLOYEE_SUB),
   createOrUpdateEmployeeSuccess: actionCreator<any[]>(CREATE_OR_UPDATE_EMPLOYEE_SUCCESS),
 };
 
@@ -67,5 +70,6 @@ export default reducerWithInitialState<EmployeeListFromStore>(initialState)
       ...state,
       employeeList: state.employeeList.map(e =>
           e.coreID === coreId ? {...e, selected: value} : e)
-    }));
+    }))
+.case(actions.createOrUpdateEmployeeSuccess, (state, payload): EmployeeListFromStore => ({...state, employeeList: payload}));
 

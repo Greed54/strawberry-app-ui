@@ -88,10 +88,9 @@ export function getColumns(this: any): Array<Column> {
                   value={value}
                   style={{width: '140px'}}
                   onSelect={(value: any) =>
-                      this.props.actions.changeItem({
-                        id: record.coreID,
-                        key: 'employeeRole',
-                        value,
+                      this.props.actions.updateEmployeeRole({
+                        coreID: record.coreID,
+                        role: value
                       })
                   }
                   dropdownMatchSelectWidth={false}
@@ -152,7 +151,7 @@ export function getColumns(this: any): Array<Column> {
                 className="employees-list-salary"
                 width={width}
                 style={{opacity: record._rowOpacity}}>
-              {value ? `${value} ₴` : ''}
+              {value ? `${value} ₴` : '0'}
             </styled.Cell>
         );
       },

@@ -12,10 +12,9 @@ export interface StrawberryEmployee {
 }
 
 export enum EmployeeRoles {
-  UNASSIGNED = 'Unassigned',
   TEAM_LEAD = 'Team Lead',
   PICKER = 'Picker',
-  LOADER = 'Loader'
+  LOADER = 'Loader',
 }
 
 export interface StrawberryEmployeeExtended extends StrawberryEmployee {

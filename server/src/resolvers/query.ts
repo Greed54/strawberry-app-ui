@@ -8,5 +8,8 @@ export const Query = {
   },
   async getSTeam(parent: any, {teamId}: {teamId: string}, ctx: any, info: any) {
     return await ctx.db.query.sTeam({ where: { coreID: teamId } }, info);
+  },
+  async getSEmployee(parent: any, {employeeId}: {employeeId: string}, ctx: any, info: any) {
+    return await ctx.db.query.sEmployee({ where: { coreID: employeeId } }, info);
   }
 };
