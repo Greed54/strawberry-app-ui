@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Select } from 'antd';
 import { groupBy, union } from 'lodash';
 import * as styled from './Search.styles';
+import {MultiSearchOption} from "../../scenes/content/workdays/types";
+import {ActionCreator} from "typescript-fsa";
 
 const { Option, OptGroup } = Select;
 const WAIT_INTERVAL = 300;
@@ -11,10 +13,6 @@ export interface SelectedValueType {
   value: string;
 }
 
-export interface SearchOption {
-  name?: string[];
-}
-
 interface Props {
   width: number;
   placeholder: string;
@@ -22,7 +20,7 @@ interface Props {
   options: any;
   onChange: (res: SelectedValueType[]) => void;
   onSearch: (res: string) => void;
-  clearOptions: () => void;
+  clearOptions: ActionCreator<void>;
   style?: any;
   selectedValue?: SelectedValueType[];
   columns: any[];
@@ -80,7 +78,7 @@ class Search extends React.Component<Props, State> {
     this.props.onSearch(searchValue);
   };
 
-  public recordOptions = (options: Array<SearchOption>, selectedValue: Array<SelectedValueType> | undefined, columns: any[]) => {
+  public recordOptions = (options: Array<MultiSearchOption>, selectedValue: Array<SelectedValueType> | undefined, columns: any[]) => {
     const valueByGroup = groupBy(selectedValue, 'id');
     return Object.entries(options).map(([key, value]) => {
       // @ts-ignore

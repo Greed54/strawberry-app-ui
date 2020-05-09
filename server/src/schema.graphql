@@ -1,5 +1,6 @@
 # import STeam from "./generated/prisma.graphql"
 # import SEmployee from "./generated/prisma.graphql"
+# import SWorkDay from "./generated/prisma.graphql"
 # import STeamSubscriptionPayload from "./generated/prisma.graphql"
 # import SEmployeeSubscriptionPayload from "./generated/prisma.graphql"
 
@@ -10,12 +11,15 @@
 # import EmployeeUpdateInput from "./extend-schema.graphql"
 # import EmployeeUpdateRoleInput from "./extend-schema.graphql"
 # import EmployeesListFilter from "./extend-schema.graphql"
+# import WorkDaysListFilter from "./extend-schema.graphql"
 
 type Query {
     getSTeams: [STeam]
     getSTeam(teamId: String): STeam
     getSEmployeesByTeamId(teamId: String): [SEmployee]
     getSEmployee(employeeId: String): SEmployee
+    getSWorkDays(filter: WorkDaysListFilter): [SWorkDay]
+    getSEmployeeOptions(searchValue: String): [SEmployee]
 }
 
 type Mutation {

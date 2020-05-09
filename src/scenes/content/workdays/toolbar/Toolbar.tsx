@@ -6,15 +6,10 @@ import Search from "../../../../components/search/Search";
 import {Select} from "antd";
 import {DATE_FORMAT} from "../../../../configs/const";
 import RangePickerComponent from "../../../../components/rangepicker/RangePicker";
+import {searchColumns} from "../columns";
 
 const {Option} = Select;
 
-export const searchColumns = [
-  {
-    key: 'name',
-    title: 'Name',
-  }
-];
 
 class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
 
@@ -32,12 +27,40 @@ class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
 
   public updateWidthWindow = () => this.setState({widthWindow: window.innerWidth});
 
+  public handleChangeSearch = (value: any) => {
+    // @ts-ignore
+    this.props.actions.changeSearch(value);
+  };
+
+  public handleGroup = (value: any) => {
+    // @ts-ignore
+    this.props.actions.group(value);
+  };
+
+  public handleChangePeriodFilter = (_: any, range: string[]) => {
+    this.setState({dates: []});
+    // @ts-ignore
+    this.props.actions.changePeriodFilter(range);
+  };
+
+  private onCalendarChange = (dates: any) => {
+    this.setState({dates});
+  };
+
+  private onOpenChangeRangePicker = (isOpen: boolean) => {
+    if (!isOpen) {
+      this.setState({dates: []});
+    }
+  };
+
   public render() {
     const {
       multiSearchOptions,
       search,
       periodFilter,
-      periodOption
+      periodOption,
+      actions,
+      group
     } = this.props;
 
     const {dates, widthWindow} = this.state;
@@ -62,20 +85,26 @@ class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
           <Search width={360}
                   placeholder="Search for..."
                   columns={searchColumns}
-                  onChange={() => "df"}
-                  onSearch={() => "ff"}
-                  clearOptions={() => "ff"}
+                  onChange={this.handleChangeSearch}
+                  onSearch={
+                    // @ts-ignore
+                    actions.fetchMultySearchOptions}
+                  clearOptions={
+                    // @ts-ignore
+                    actions.clearMultySearchOptions}
                   options={multiSearchOptions}
                   selectedValue={search}
                   aqa="ch-search-autocomplete-filter"/>
-          <Select value={"dateAndTime"} style={{width: 230, marginLeft: 18}} onChange={() => "ff"}>
+          <Select value={group} style={{width: 230, marginLeft: 18}} onChange={this.handleGroup}>
             <Option value="dateAndTime">Grouped By Date and Time</Option>
-            <Option value="assignee">Grouped By Assigned To</Option>
+            <Option value="teamName">Grouped By Team Name</Option>
           </Select>
           <Select
               value={periodOption}
               style={{width: 140, marginLeft: 8}}
-              onChange={() => "d"}
+              onChange={
+                // @ts-ignore
+                actions.changePeriodOption}
           >
             <Option value="1">1 Days Period</Option>
             <Option value="2">2 Days Period</Option>
@@ -89,10 +118,10 @@ class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             )}
           </Select>
           <RangePickerComponent rangeDatePickerValues={rangeDatePickerValues}
-                                handleChangePeriodFilter={() => 'd'}
+                                handleChangePeriodFilter={this.handleChangePeriodFilter}
                                 disabledDate={disabledDate}
-                                onCalendarChange={() => 'f'}
-                                onOpenChangeRangePicker={() => 'f'}/>
+                                onCalendarChange={this.onCalendarChange}
+                                onOpenChangeRangePicker={this.onOpenChangeRangePicker}/>
         </ToolbarComponent>
     );
   }

@@ -3,26 +3,37 @@ import * as styled from './WorkDays.styles';
 import {getColumns} from "./columns";
 import Table from "../../../components/table/Table";
 import AutoSizer from 'react-virtualized-auto-sizer';
-import {Employee} from "./types";
-import Toolbar from "./toolbar/Toolbar";
-import {Layout} from "antd";
+import {WorkDaysProps} from "./types";
+import Toolbar from "./toolbar/ToolbarContainer";
+import {Layout, Select} from "antd";
+import {EmployeeRoles} from "../../../types/schema-types";
+const {Option} = Select;
 
-interface WorkDaysProps {
-  employees: Array<Employee>
-  isAllGroupsOpen: boolean
-}
 
 class WorkDays extends React.Component<WorkDaysProps> {
+
+  componentDidMount(): void {
+    this.props.actions.fetch();
+  }
+
+  public renderEmployeeRoles = () => {
+    return Object.keys(EmployeeRoles).map(role => {
+      if (role === "TEAM_LEAD" && false) {
+        // @ts-ignore
+        return <Option key={role} disabled={true}>{EmployeeRoles[role]}</Option>;
+      } else {
+        // @ts-ignore
+        return <Option key={role}>{EmployeeRoles[role]}</Option>;
+      }
+    })
+  };
+
   render() {
     const listColumns = getColumns.call(this);
-    const {employees} = this.props;
+    const {workDayList, sorting, isLoading, group} = this.props;
     return (
         <Layout>
-          <Toolbar multiSearchOptions={{name: ["Usa"]}}
-                   search={[]}
-                   periodFilter={["12-09-2020", "13-09-2020"]}
-                   periodOption={"1"}>
-          </Toolbar>
+          <Toolbar/>
           <styled.Content id="ContainerForPopover">
             <styled.ListWrapper>
               <styled.ListTitle>
@@ -33,19 +44,18 @@ class WorkDays extends React.Component<WorkDaysProps> {
               <AutoSizer>
                 {({width, height }) => (
                     <Table
-                        rowKey="coreId"
+                        rowKey="coreID"
                         headerHeight={40}
                         rowHeight={40}
                         columns={listColumns}
-                        dataSource={employees}
+                        dataSource={workDayList}
                         height={height - 45}
                         width={width}
-                        // onClick={this.handleRowClick}
                         // onSort={actions.changeSorting}
-                        // sorting={sorting}
-                        groupBy={"coreId"}
+                        sorting={sorting}
+                        groupBy={group}
                         // onExpand={(_, record) => actions.openCloseGroup(record.coreId)}
-                        // loading={isLoading}
+                        loading={isLoading}
                     />
                 )}
               </AutoSizer>

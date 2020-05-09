@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {Block, Cell, GroupAllCell, IconEditContainer, Notes} from "./WorkDays.styles";
-import {Tooltip, Icon, Select} from "antd";
-import {get} from 'lodash';
+import {Icon, Select, Tooltip} from "antd";
 
-const {Option} = Select;
 
 const renderAllGroupToggle = (
     {
@@ -59,7 +57,7 @@ export function getColumns(this: any) {
     {
       key: 'employeeName',
       title: 'Employee Name',
-      dataIndex: 'name',
+      dataIndex: 'employeeName',
       width: '150px',
       render: (value: any, record: any, width: any) => {
         return (
@@ -81,7 +79,7 @@ export function getColumns(this: any) {
     {
       key: 'teamName',
       title: 'Team',
-      dataIndex: 'team',
+      dataIndex: 'teamName',
       width: '140px',
       render: (value: any, record: any, width: any) => {
         return (
@@ -147,7 +145,7 @@ export function getColumns(this: any) {
     {
       key: 'salary',
       title: 'Salary',
-      dataIndex: 'salary',
+      dataIndex: 'allSalarys',
       width: '160px',
       render: (value: any, record: any, width: any) => {
         return (
@@ -168,9 +166,9 @@ export function getColumns(this: any) {
     },
     {
       key: 'uuid',
-      title: 'UUID',
+      title: 'Card Id',
       dataIndex: 'cardId',
-      width: '170px',
+      width: '300px',
       render: (value: any, record: any, width: any) => {
         return (
             record.isGroup ? (
@@ -191,7 +189,7 @@ export function getColumns(this: any) {
     {
       key: 'weightNumbers',
       title: 'Weight Numbers',
-      dataIndex: 'weightNumber',
+      dataIndex: 'weightNumbers',
       width: '150px',
       render: (value: any, record: any, width: any) => {
         return (
@@ -212,12 +210,10 @@ export function getColumns(this: any) {
     },
     {
       key: 'note',
-      dataIndex: 'notes',
+      dataIndex: 'note',
       title: 'Notes',
       width: '200px',
-      // headerCellStyle: { width: '100%', minWidth: '30px', paddingRight: '5px' },
       render: (value: any, record: any, width: any) => {
-        // const noteText = get(value[0], 'note', '');
         const noteIconColor = 1 > 0 ? '#1890ff' : '#ccc';
         return (
             <Cell
@@ -240,8 +236,8 @@ export function getColumns(this: any) {
                   </IconEditContainer>
                 </Tooltip>
               </Block>
-              <Tooltip placement="top" title={"noteText"}>
-                <Notes>{"noteText"}</Notes>
+              <Tooltip placement="top" title={value}>
+                <Notes>{value}</Notes>
               </Tooltip>
             </Cell>
         );
@@ -249,14 +245,10 @@ export function getColumns(this: any) {
     },
     {
       key: 'employeeRole',
-      dataIndex: 'role',
+      dataIndex: 'employeeRole',
       title: 'Role',
       width: '140px',
       render: (value: any, record: any, width: any) => {
-        const roleOptions: any = [
-          <Option key={'o.coreId'}>{"Team Lead"}</Option>
-        ];
-
         return record.isGroup ? (
             value
         ) : (
@@ -271,12 +263,16 @@ export function getColumns(this: any) {
                   placeholder="Role"
                   optionFilterProp="children"
                   showSearch={true}
-                  value={(value && value.coreId) || 'Unassigned'}
+                  value={value}
                   style={{width: '140px'}}
-                  onSelect={() => "f"}
+                  onSelect={(value: any) =>
+                      this.props.actions.updateEmployeeRole({
+                        coreID: record.employeeCoreID,
+                        role: value
+                      })}
                   dropdownMatchSelectWidth={false}
               >
-                {roleOptions}
+                {this.renderEmployeeRoles()}
               </Select>
             </Cell>
         );
@@ -285,7 +281,7 @@ export function getColumns(this: any) {
     {
       key: 'pricePerKilogram',
       title: 'Price per kilogram',
-      dataIndex: 'pricePerKilogram',
+      dataIndex: 'pricePerKilo',
       width: '150px',
       render: (value: any, record: any, width: any) => {
         return (
@@ -306,3 +302,22 @@ export function getColumns(this: any) {
     }
   ]
 }
+
+export const searchColumns = [
+  {
+    key: 'name',
+    title: 'Name',
+  },
+  {
+    key: 'uuid',
+    title: 'Card Id',
+  },
+  {
+    key: 'note',
+    title: 'Note',
+  },
+  {
+    key: 'teamName',
+    title: 'Team',
+  }
+];

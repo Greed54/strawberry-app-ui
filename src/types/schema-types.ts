@@ -44,6 +44,9 @@ export interface StrawberryWorkDay {
   teams?: Array<StrawberryTeam>
   pricePerKilo: number;
   tareWeight: number;
+  boxes?: number
+  kilograms?: number
+  allSalarys?: number
   createdBy?: string;
   _createdAt?: any | null;
   modifiedBy?: string;
@@ -57,7 +60,7 @@ export interface StrawberryBox {
   workDay: StrawberryWorkDay;
   kilograms: number;
   boxAmount: number;
-  weightNumber?: number;
+  weightId?: number;
   createdBy?: string;
   _createdAt?: any | null;
   modifiedBy?: string;
@@ -68,4 +71,46 @@ export interface StrawberryBox {
 export interface Sorting {
   key: string;
   order: 'ASC' | 'DESC';
+}
+
+export interface WorkDaysListFilter {
+  dateFrom?: string | null;
+  dateTo?: string | null;
+  cardId?: string | null;
+  name?: string | null;
+  note?: string | null;
+  teamName?: string | null;
+}
+
+export interface WorkDaysType {
+  coreID: string;
+  date: any;
+  employeeCoreID: string;
+  employeeName: string;
+  teamName: string;
+  cardId: string;
+  weightNumbers: string;
+  note: string;
+  employeeRole: EmployeeRoles;
+  pricePerKilo: number;
+  tareWeight: number;
+  boxes?: number
+  kilograms?: number
+  allSalarys?: number
+}
+
+export interface MultiSearchWorkDaysOptions {
+  getSEmployeeOptions: (MultiSearchEmployeeOptions | null)[] | null;
+}
+
+export interface MultiSearchEmployeeOptions {
+  cardId: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  note: string | null;
+  team: MultiSearchTeamOptions | null;
+}
+
+export interface MultiSearchTeamOptions {
+  teamName: string | null;
 }

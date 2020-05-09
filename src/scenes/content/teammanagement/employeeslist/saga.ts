@@ -6,7 +6,7 @@ import {StrawberryBox, StrawberryEmployee, StrawberryEmployeeExtended} from "../
 import {safeTakeEvery} from "../../../../helpers/saga";
 import {Action} from "typescript-fsa";
 import {AddEmployeeCommand, AmendEmployeeCommand, AmendEmployeeRoleCommand, EmployeeRole} from "../../../../../server/src/api/employee";
-import {recordKey, recordUUID, recordValue} from "../../../../helpers/data";
+import {calculateSalaryForAllTime, recordKey, recordUUID, recordValue} from "../../../../helpers/data";
 import moment from "moment";
 import {addStrawberryEmployee, amendStrawberryEmployee, amendStrawberryEmployeeRole} from "../../../../mutation/employee";
 import {getEmployeeListSelector} from "./selectors";
@@ -27,17 +27,6 @@ function* fetch() {
   }));
   yield put(actions.fetchSuccess(extendedEmployees));
 }
-
-const calculateSalaryForAllTime = (employee: StrawberryEmployee) => {
-  return employee.boxes?.reduce((previousValue: number, currentValue: StrawberryBox, currentIndex: number, array: StrawberryBox[]) => {
-    const pricePerKilo = currentValue.workDay.pricePerKilo;
-    const tareWeight = currentValue.workDay.tareWeight;
-    const kilograms = currentValue.kilograms;
-    const boxAmount = currentValue.boxAmount;
-
-    return previousValue + (kilograms - (boxAmount * tareWeight)) * pricePerKilo;
-  }, 0)
-};
 
 function* saveStrawberryEmployee(action: Action<StrawberryEmployee>) {
   const employee = action.payload;

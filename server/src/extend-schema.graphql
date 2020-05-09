@@ -69,3 +69,12 @@ input EmployeesListFilter {
     teamId: String
     fullName: String
 }
+
+input WorkDaysListFilter {
+    dateFrom: String
+    dateTo: String
+    cardId: [String]
+    name: [String]
+    note: [String]
+    teamName: [String]
+}
