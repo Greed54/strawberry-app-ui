@@ -29,7 +29,7 @@
     "graphql-shield": "^4.1.0",
     "graphql-yoga": "^1.18.3",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "prisma-binding": "^2.3.16",
     "uuid": "^7.0.2",
     "winston": "2.4.4"
